@@ -2,6 +2,8 @@
 
 Install NixOS or the nix package manager: https://nixos.org/download
 
+> NOTE (corporate): make sure the `HTTP(s)_PROXY`, `http(s)_proxy`, `ftp_proxy` environment variables are set
+
 ### NixOS (with flakes)
 
 1. Add your flake to you NixOS flake inputs.
