@@ -1,42 +1,56 @@
-local configs = require('nvim-treesitter.configs')
-configs.setup {
-  -- ensure_installed = 'all',
-  -- auto_install = false, -- Do not automatically install missing parsers when entering buffer
-  highlight = {
+require('nvim-treesitter.configs').setup {
+  -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
+  auto_install = false,
+
+  autotag = {
     enable = true,
-    disable = function(_, buf)
-      local max_filesize = 100 * 1024 -- 100 KiB
-      local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-      if ok and stats and stats.size > max_filesize then
-        return true
-      end
-    end,
+  },
+  highlight = { enable = true },
+  indent = { enable = true },
+  incremental_selection = {
+    enable = true,
+    keymaps = {
+      init_selection = '<c-space>',
+      node_incremental = '<c-space>',
+      scope_incremental = '<c-s>',
+      node_decremental = '<M-space>',
+    },
+  },
+  playground = {
+    enable = true,
   },
   textobjects = {
     select = {
       enable = true,
-      -- Automatically jump forward to textobject, similar to targets.vim
-      lookahead = true,
+      lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
       keymaps = {
+        -- You can use the capture groups defined in textobjects.scm
+        ['aa'] = '@parameter.outer',
+        ['ia'] = '@parameter.inner',
         ['af'] = '@function.outer',
         ['if'] = '@function.inner',
         ['ac'] = '@class.outer',
         ['ic'] = '@class.inner',
-        ['aC'] = '@call.outer',
-        ['iC'] = '@call.inner',
-        ['a#'] = '@comment.outer',
-        ['i#'] = '@comment.outer',
-        ['ai'] = '@conditional.outer',
-        ['ii'] = '@conditional.outer',
-        ['al'] = '@loop.outer',
-        ['il'] = '@loop.inner',
-        ['aP'] = '@parameter.outer',
-        ['iP'] = '@parameter.inner',
       },
-      selection_modes = {
-        ['@parameter.outer'] = 'v', -- charwise
-        ['@function.outer'] = 'V', -- linewise
-        ['@class.outer'] = '<c-v>', -- blockwise
+    },
+    move = {
+      enable = true,
+      set_jumps = true, -- whether to set jumps in the jumplist
+      goto_next_start = {
+        [']m'] = '@function.outer',
+        [']]'] = '@class.outer',
+      },
+      goto_next_end = {
+        [']M'] = '@function.outer',
+        [']['] = '@class.outer',
+      },
+      goto_previous_start = {
+        ['[m'] = '@function.outer',
+        ['[['] = '@class.outer',
+      },
+      goto_previous_end = {
+        ['[M'] = '@function.outer',
+        ['[]'] = '@class.outer',
       },
     },
     swap = {
@@ -48,43 +62,5 @@ configs.setup {
         ['<leader>A'] = '@parameter.inner',
       },
     },
-    move = {
-      enable = true,
-      set_jumps = true, -- whether to set jumps in the jumplist
-      goto_next_start = {
-        [']m'] = '@function.outer',
-        [']P'] = '@parameter.outer',
-      },
-      goto_next_end = {
-        [']m'] = '@function.outer',
-        [']P'] = '@parameter.outer',
-      },
-      goto_previous_start = {
-        ['[m'] = '@function.outer',
-        ['[P'] = '@parameter.outer',
-      },
-      goto_previous_end = {
-        ['[m'] = '@function.outer',
-        ['[P'] = '@parameter.outer',
-      },
-    },
-    nsp_interop = {
-      enable = true,
-      peek_definition_code = {
-        ['df'] = '@function.outer',
-        ['dF'] = '@class.outer',
-      },
-    },
-  },
-  context_commentstring = {
-    enable = true,
   },
 }
-
-require('treesitter-context').setup {
-  max_lines = 3,
-}
-
--- Tree-sitter based folding
--- vim.opt.foldmethod = 'expr'
-vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'

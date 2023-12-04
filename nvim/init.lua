@@ -1,111 +1,97 @@
-local cmd = vim.cmd
-local fn = vim.fn
-local opt = vim.o
-local g = vim.g
+vim.g.mapleader = ' '
+-- Set highlight on search
+vim.o.hlsearch = false
 
--- <leader> key. Defaults to `\`. Some people prefer space.
--- g.mapleader = ' '
--- g.maplocalleader = ' '
+-- Make line numbers default
+vim.wo.number = true
+vim.wo.relativenumber = true
 
-cmd.syntax('on')
-cmd.syntax('enable')
-opt.compatible = false
+vim.o.tabstop = 2
+vim.o.shiftwidth = 2
+vim.o.expandtab = true
 
--- Enable true colour support
-if fn.has('termguicolors') then
-  opt.termguicolors = true
-end
+-- Enable mouse mode
+vim.o.mouse = 'a'
 
--- See :h <option> to see what the options do
+-- Sync clipboard between OS and Neovim.
+--  Remove this option if you want your OS clipboard to remain independent.
+--  See `:help 'clipboard'`
+vim.o.clipboard = 'unnamedplus'
 
--- Search down into subfolders
-opt.path = vim.o.path .. '**'
+-- Enable break indent
+vim.o.breakindent = true
 
-opt.number = true
-opt.relativenumber = true
-opt.cursorline = true
-opt.lazyredraw = true
-opt.showmatch = true -- Highlight matching parentheses, etc
-opt.incsearch = true
-opt.hlsearch = true
+-- Save undo history
+vim.opt.backup = false
+vim.opt.undodir = vim.fn.stdpath('data') .. '/undodir'
+vim.o.undofile = true
+vim.o.swapfile = false
 
-opt.spell = true
-opt.spelllang = 'en'
+-- Case-insensitive searching UNLESS \C or capital in search
+vim.o.ignorecase = true
+vim.o.smartcase = true
 
-opt.expandtab = true
-opt.tabstop = 2
-opt.softtabstop = 2
-opt.shiftwidth = 2
-opt.foldenable = true
-opt.history = 2000
-opt.nrformats = 'bin,hex' -- 'octal'
-opt.undofile = true
-opt.splitright = true
-opt.splitbelow = true
-opt.cmdheight = 0
+-- Keep signcolumn on by default
+vim.wo.signcolumn = 'yes'
 
-opt.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
+-- Decrease update time
+vim.o.updatetime = 250
+vim.o.timeoutlen = 300
 
--- Configure Neovim diagnostic messages
+-- Set completeopt to have a better completion experience
+vim.o.completeopt = 'menuone,noselect'
 
-local function prefix_diagnostic(prefix, diagnostic)
-  return string.format(prefix .. ' %s', diagnostic.message)
-end
+-- NOTE: You should make sure your terminal supports this
+vim.o.termguicolors = true
 
-local sign = function(opts)
-  fn.sign_define(opts.name, {
-    texthl = opts.name,
-    text = opts.text,
-    numhl = '',
-  })
-end
--- Requires Nerd fonts
-sign { name = 'DiagnosticSignError', text = '󰅚' }
-sign { name = 'DiagnosticSignWarn', text = '⚠' }
-sign { name = 'DiagnosticSignInfo', text = 'ⓘ' }
-sign { name = 'DiagnosticSignHint', text = '󰌶' }
+-- [[ Basic Keymaps ]]
+vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
-vim.diagnostic.config {
-  virtual_text = {
-    prefix = '',
-    format = function(diagnostic)
-      local severity = diagnostic.severity
-      if severity == vim.diagnostic.severity.ERROR then
-        return prefix_diagnostic('󰅚', diagnostic)
-      end
-      if severity == vim.diagnostic.severity.WARN then
-        return prefix_diagnostic('⚠', diagnostic)
-      end
-      if severity == vim.diagnostic.severity.INFO then
-        return prefix_diagnostic('ⓘ', diagnostic)
-      end
-      if severity == vim.diagnostic.severity.HINT then
-        return prefix_diagnostic('󰌶', diagnostic)
-      end
-      return prefix_diagnostic('■', diagnostic)
-    end,
-  },
-  signs = true,
-  update_in_insert = false,
-  underline = true,
-  severity_sort = true,
-  float = {
-    focusable = false,
-    style = 'minimal',
-    border = 'rounded',
-    source = 'always',
-    header = '',
-    prefix = '',
-  },
-}
+-- Remap for dealing with word wrap
+vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
-g.editorconfig = true
+local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
+vim.api.nvim_create_autocmd('TextYankPost', {
+  callback = function()
+    vim.highlight.on_yank()
+  end,
+  group = highlight_group,
+  pattern = '*',
+})
+local format_group = vim.api.nvim_create_augroup('FormatGroup', { clear = true })
+vim.api.nvim_create_autocmd('BufWritePre', {
+  group = format_group,
+  pattern = '*',
+  command = '%s/\\s\\+$//e',
+})
+vim.cmd([[autocmd FileType * setlocal formatoptions-=cro]])
 
-vim.opt.colorcolumn = '100'
+vim.keymap.set('n', '<leader>fh', function()
+  require('telescope.builtin').help_tags()
+end)
+vim.keymap.set('n', '<leader>gb', function()
+  require('telescope.builtin').git_branches()
+end)
+vim.keymap.set('n', '<leader>gc', function()
+  require('telescope.builtin').git_commits()
+end)
+vim.keymap.set('n', '<leader>sd', function()
+  require('telescope.diagnostics').git_branches()
+end)
+-- Writing file CTRL+S
+vim.keymap.set('n', '<C-s>', '<cmd>w<cr>', { desc = 'Write file' })
+vim.keymap.set('i', '<C-s>', '<cmd>w<cr>', { desc = 'Write file' })
 
--- Native plugins
-cmd.filetype('plugin', 'indent', 'on')
-cmd.packadd('cfilter') -- Allows filtering the quickfix list with :cfdo
+-- Git keybinds
+vim.keymap.set('n', '<leader>gs', '<cmd>Git<CR>')
+vim.keymap.set('n', '<C-b>', '<CMD>Oil<CR>', { desc = 'Open parent directory' })
 
--- let sqlite.lua (which some plugins depend on) know where to find sqlite
-vim.g.sqlite_clib_path = require('luv').os_getenv('LIBSQLITE')
+vim.api.nvim_create_user_command('W', function()
+  vim.cmd('w')
+end, { nargs = 0 })
+vim.keymap.set('n', '<leader>u', '<cmd>UndotreeToggle<CR>')
+
+require('Comment').setup()
+
+vim.cmd([[colorscheme onedark]])
