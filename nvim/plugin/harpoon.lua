@@ -3,7 +3,7 @@ if not ok then
   return
 end
 
-vim.keymap.set('n', '<M-h><M-m>', require('harpoon.mark').add_file)
+vim.keymap.set('n', '<leader>a', require('harpoon.mark').add_file)
 vim.keymap.set('n', '<M-h><M-l>', require('harpoon.ui').toggle_quick_menu)
 vim.keymap.set('n', '<space>1', function()
   require('harpoon.ui').nav_file(1)

@@ -2,6 +2,8 @@ vim.g.mapleader = ' '
 -- Set highlight on search
 vim.o.hlsearch = false
 
+vim.o.scrolloff = 8
+
 -- Make line numbers default
 vim.wo.number = true
 vim.wo.relativenumber = true
@@ -13,13 +15,9 @@ vim.o.expandtab = true
 -- Enable mouse mode
 vim.o.mouse = 'a'
 
--- Sync clipboard between OS and Neovim.
---  Remove this option if you want your OS clipboard to remain independent.
---  See `:help 'clipboard'`
-vim.o.clipboard = 'unnamedplus'
-
 -- Enable break indent
 vim.o.breakindent = true
+vim.opt.guicursor = ''
 
 -- Save undo history
 vim.opt.backup = false
@@ -35,8 +33,7 @@ vim.o.smartcase = true
 vim.wo.signcolumn = 'yes'
 
 -- Decrease update time
-vim.o.updatetime = 250
-vim.o.timeoutlen = 300
+vim.o.updatetime = 50
 
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
@@ -79,13 +76,29 @@ end)
 vim.keymap.set('n', '<leader>sd', function()
   require('telescope.diagnostics').git_branches()
 end)
+
+vim.keymap.set('n', 'n', 'nzzzv')
+vim.keymap.set('n', 'N', 'Nzzzv')
+vim.keymap.set('n', '<C-d>', '<C-d>zz')
+vim.keymap.set('n', '<C-u>', '<C-u>zz')
+vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
+vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
+
+vim.keymap.set('n', '<C-k>', '<cmd>cnext<CR>zz')
+vim.keymap.set('n', '<C-j>', '<cmd>cprev<CR>zz')
+
 -- Writing file CTRL+S
-vim.keymap.set('n', '<C-s>', '<cmd>w<cr>', { desc = 'Write file' })
-vim.keymap.set('i', '<C-s>', '<cmd>w<cr>', { desc = 'Write file' })
+vim.keymap.set('n', '<C-s>', '<cmd>w<cr>')
+vim.keymap.set('i', '<C-s>', '<cmd>w<cr>')
 
 -- Git keybinds
 vim.keymap.set('n', '<leader>gs', '<cmd>Git<CR>')
-vim.keymap.set('n', '<C-b>', '<CMD>Oil<CR>', { desc = 'Open parent directory' })
+vim.keymap.set('n', '<C-b>', '<CMD>Oil<CR>')
+
+-- Copy paste
+vim.keymap.set('x', '<leader>p', [["_dP]])
+vim.keymap.set({ 'n', 'v' }, '<leader>y', [["+y]])
+vim.keymap.set('n', '<leader>Y', [["+Y]])
 
 vim.api.nvim_create_user_command('W', function()
   vim.cmd('w')

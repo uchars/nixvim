@@ -44,7 +44,6 @@ let
     diffview-nvim
 
     plenary-nvim
-    nvim-autopairs
     crates-nvim
     comment-nvim
     undotree
