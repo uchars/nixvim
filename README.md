@@ -1,15 +1,3 @@
-## Bootstrap
-
-```bash
-curl -o- https://raw.githubusercontent.com/uchars/nixvim/main/bootstrap.sh | bash
-```
-
-This script does the following.
-
-1. Downloads & sets up nix-portable
-2. Downloads the repository
-3. Installs nvim
-
 ## Installation
 
 Install NixOS or the nix package manager: https://nixos.org/download
@@ -41,5 +29,5 @@ environment.systemPackages = with pkgs; [
 With Nix installed (flakes enabled), from the repo root:
 
 ```console
-nix profile install .#nvim
+nix --experimental-features 'nix-command flakes' profile install .#nvim
 ```
