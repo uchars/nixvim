@@ -1,3 +1,15 @@
+## Bootstrap
+
+```bash
+curl -o- https://raw.githubusercontent.com/uchars/nixvim/main/bootstrap.sh | bash
+```
+
+This script does the following.
+
+1. Downloads & sets up nix-portable
+2. Downloads the repository
+3. Installs nvim
+
 ## Installation
 
 Install NixOS or the nix package manager: https://nixos.org/download

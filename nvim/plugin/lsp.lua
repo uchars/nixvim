@@ -16,7 +16,6 @@ local on_attach = function(_, bufnr)
   nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols)
   nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols)
 
-  -- See `:help K` for why this keymap
   nmap('K', vim.lsp.buf.hover)
 
   -- Lesser used LSP functionality
