@@ -4,11 +4,16 @@ local on_attach = function(_, bufnr)
       desc = 'LSP: ' .. desc
     end
     vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
+    require('lsp_signature').on_attach({
+      hint_prefix = ' ',
+      toggle_key = '<C-k>',
+      floating_window = false,
+      hint_enable = false,
+    }, bufnr)
   end
 
   nmap('<leader>rn', vim.lsp.buf.rename)
   nmap('<leader>ca', vim.lsp.buf.code_action)
-
   nmap('gd', vim.lsp.buf.definition)
   nmap('gr', require('telescope.builtin').lsp_references)
   nmap('<leader>gi', require('telescope.builtin').lsp_implementations)
@@ -48,6 +53,7 @@ end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+capabilities.offsetEncoding = { 'utf-16' }
 
 require('lspconfig').gopls.setup {
   capabilities = capabilities,

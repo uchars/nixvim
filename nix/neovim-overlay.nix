@@ -51,6 +51,7 @@ let
     oil-nvim
     harpoon
     telescope-nvim
+    telescope-project-nvim
     telescope-fzf-native-nvim
 
     (mkNvimPlugin inputs.transparent-nvim "transparent.nvim")
@@ -79,6 +80,10 @@ let
     pkgs.nodePackages.fixjson
     pkgs.nodePackages.markdownlint-cli
     pkgs.python310Packages.autopep8
+  ] ++ [
+    # Tools
+    pkgs.ripgrep
+    pkgs.xxd
   ];
 
 in {

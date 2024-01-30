@@ -1,10 +1,16 @@
 require('telescope').setup {
-  extensions = {},
+  extensions = {
+    project = {
+      base_dirs = {
+        '~/src',
+        '~/.dotfiles',
+      },
+    },
+  },
 }
 
--- Enable telescope fzf native, if installed
-pcall(require('telescope').load_extension, 'fzf')
-pcall(require('telescope').load_extension, 'menu')
+require('telescope').load_extension('fzf')
+require('telescope').load_extension('project')
 
 vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles)
 vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers)
@@ -23,6 +29,7 @@ vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep)
 vim.keymap.set('n', '<C-f>', require('telescope.builtin').live_grep)
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics)
 vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume)
+vim.keymap.set('n', '<leader>fp', require('telescope').extensions.project.project)
 vim.keymap.set('n', '<leader>fh', function()
   require('telescope.builtin').help_tags()
 end)
