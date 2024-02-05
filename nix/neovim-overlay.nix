@@ -36,12 +36,14 @@ let
     playground
     onedark-nvim
     zen-mode-nvim
+    indent-blankline-nvim
 
     # git
     fugitive
     git-blame-nvim
     gitsigns-nvim
     diffview-nvim
+    git-worktree-nvim
 
     plenary-nvim
     crates-nvim
@@ -55,7 +57,6 @@ let
     telescope-fzf-native-nvim
 
     (mkNvimPlugin inputs.transparent-nvim "transparent.nvim")
-    # (mkNvimPlugin inputs.blankline-nvim "indent-blankline.nvim")
     (mkNvimPlugin inputs.colorizer-nvim "nvim-colorizer.lua")
   ];
 

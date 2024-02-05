@@ -10,11 +10,6 @@
       flake = false;
     };
 
-    blankline-nvim = {
-      url = "github:lukas-reineke/indent-blankline.nvim";
-      flake = false;
-    };
-
     colorizer-nvim = {
       url = "github:norcalli/nvim-colorizer.lua";
       flake = false;

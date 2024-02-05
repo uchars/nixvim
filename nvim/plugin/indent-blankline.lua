@@ -1,1 +1,1 @@
--- require('ibl').setup()
+require('indent_blankline').setup()

@@ -1,6 +1,24 @@
 require('telescope').setup {
+  defaults = {
+    layout_config = {
+      horizontal = {
+        prompt_position = 'top',
+        preview_width = 0.55,
+        results_width = 0.8,
+      },
+      vertical = {
+        mirror = false,
+      },
+      width = 0.87,
+      height = 0.8,
+      preview_cutoff = 120,
+    },
+  },
   extensions = {
     project = {
+      display_type = 'full',
+      hidden_files = true,
+      theme = 'dropdown',
       base_dirs = {
         '~/src',
         '~/.dotfiles',
@@ -11,6 +29,7 @@ require('telescope').setup {
 
 require('telescope').load_extension('fzf')
 require('telescope').load_extension('project')
+require('telescope').load_extension('git_worktree')
 
 vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles)
 vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers)
@@ -19,7 +38,6 @@ vim.keymap.set('n', '<leader>/', function()
     previewer = false,
   })
 end)
-
 vim.keymap.set('n', '<leader>gf', require('telescope.builtin').git_files)
 vim.keymap.set('n', '<leader>sf', require('telescope.builtin').find_files)
 vim.keymap.set('n', '<C-p>', require('telescope.builtin').find_files)
@@ -30,6 +48,8 @@ vim.keymap.set('n', '<C-f>', require('telescope.builtin').live_grep)
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics)
 vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume)
 vim.keymap.set('n', '<leader>fp', require('telescope').extensions.project.project)
-vim.keymap.set('n', '<leader>fh', function()
-  require('telescope.builtin').help_tags()
-end)
+vim.keymap.set('n', '<leader>fh', require('telescope.builtin').help_tags)
+vim.keymap.set('n', '<leader>gb', require('telescope.builtin').git_branches)
+vim.keymap.set('n', '<leader>gc', require('telescope.builtin').git_commits)
+vim.keymap.set('n', '<leader>gw', require('telescope').extensions.git_worktree.git_worktrees)
+vim.keymap.set('n', '<leader>gW', require('telescope').extensions.git_worktree.create_git_worktree)

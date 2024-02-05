@@ -1,21 +1,5 @@
 {
   "nodes": {
-    "blankline-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1701483513,
-        "narHash": "sha256-RLTqwqfwOyzDGnJLvo138eWkeK3vmNOIjh4nUAtFfbk=",
-        "owner": "lukas-reineke",
-        "repo": "indent-blankline.nvim",
-        "rev": "dbd90bb689ff10d21fee6792eb8928f0584b5860",
-        "type": "github"
-      },
-      "original": {
-        "owner": "lukas-reineke",
-        "repo": "indent-blankline.nvim",
-        "type": "github"
-      }
-    },
     "colorizer-nvim": {
       "flake": false,
       "locked": {
@@ -68,7 +52,6 @@
     },
     "root": {
       "inputs": {
-        "blankline-nvim": "blankline-nvim",
         "colorizer-nvim": "colorizer-nvim",
         "flake-utils": "flake-utils",
         "nixpkgs": "nixpkgs",
