@@ -1,3 +1,13 @@
+local function remove_nonexistant_dirs(dirs)
+  local valid = {}
+  for _, dir in pairs(dirs) do
+    if vim.fn.isdirectory(dir) ~= 0 then
+      table.insert(valid, dir)
+    end
+  end
+  return valid
+end
+
 require('telescope').setup {
   defaults = {
     layout_config = {
@@ -19,9 +29,10 @@ require('telescope').setup {
       display_type = 'full',
       hidden_files = true,
       theme = 'dropdown',
-      base_dirs = {
-        '~/src',
-        '~/.dotfiles',
+      base_dirs = remove_nonexistant_dirs {
+        os.getenv('HOME') .. '/src',
+        os.getenv('HOME') .. '/work',
+        os.getenv('HOME') .. '/.dotfiles',
       },
     },
   },

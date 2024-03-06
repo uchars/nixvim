@@ -29,5 +29,5 @@ environment.systemPackages = with pkgs; [
 With Nix installed (flakes enabled), from the repo root:
 
 ```console
-nix --experimental-features 'nix-command flakes' profile install .#nvim
+nix profile remove nvim --extra-experimental-features nix-command ; nix --experimental-features 'nix-command flakes' profile install .#nvim
 ```
