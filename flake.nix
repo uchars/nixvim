@@ -35,6 +35,7 @@
             nil
             stylua
             luajitPackages.luacheck
+            xclip
           ];
         };
       in {
