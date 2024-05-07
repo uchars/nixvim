@@ -92,6 +92,12 @@ vim.api.nvim_create_user_command('W', function()
 end, { nargs = 0 })
 vim.keymap.set('n', '<leader>u', '<cmd>UndotreeToggle<CR>')
 
-require('Comment').setup()
+if true or not vim.fn.executable('nix') then
+  -- use package manager if the system does not use nix
+  require('bootstrap')
+end
 
-vim.cmd([[colorscheme onedark]])
+local ok, _ = pcall(require, "onedark")
+if ok then
+  vim.cmd([[colorscheme onedark]])
+end

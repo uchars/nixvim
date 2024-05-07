@@ -1,3 +1,8 @@
+local ok, _ = pcall(require, 'telescope')
+if not ok then
+  return
+end
+
 local function remove_nonexistant_dirs(dirs)
   local valid = {}
   for _, dir in pairs(dirs) do

@@ -1,15 +1,25 @@
+local ok_fg, fidget = pcall(require, 'fidget')
+local ok_lspconf, _ = pcall(require, 'fidget')
+local ok_telescope, _ = pcall(require, 'telescope')
+local ok_signature, _ = pcall(require, 'lsp_signature')
+if not ok_lspconf and not ok_telescope then
+  return
+end
+
 local on_attach = function(_, bufnr)
   local nmap = function(keys, func, desc)
     if desc then
       desc = 'LSP: ' .. desc
     end
     vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
-    require('lsp_signature').on_attach({
-      hint_prefix = ' ',
-      toggle_key = '<C-k>',
-      floating_window = false,
-      hint_enable = false,
-    }, bufnr)
+    if ok_signature then
+      require('lsp_signature').on_attach({
+        hint_prefix = ' ',
+        toggle_key = '<C-k>',
+        floating_window = false,
+        hint_enable = false,
+      }, bufnr)
+    end
   end
 
   nmap('<leader>rn', vim.lsp.buf.rename)
@@ -129,7 +139,9 @@ require('lspconfig').ocamllsp.setup {
   on_attach = on_attach,
 }
 
-require('fidget').setup {
-  window = { blend = 0 },
-  text = { spinner = 'earth' },
-}
+if ok_fg then
+  fidget.setup {
+    window = { blend = 0 },
+    text = { spinner = 'earth' },
+  }
+end

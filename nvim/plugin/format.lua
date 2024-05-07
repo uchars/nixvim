@@ -1,4 +1,9 @@
-local null_ls = require 'null-ls'
+local ok, null_ls = pcall(require, 'null-ls')
+if not ok then
+  print("null ls not installed")
+  return
+end
+
 null_ls.setup {
   sources = {
     null_ls.builtins.formatting.stylua,
@@ -10,7 +15,7 @@ null_ls.setup {
     null_ls.builtins.formatting.clang_format,
   },
   on_attach = function(client, bufnr)
-    if client.supports_method 'textDocument/formatting' then
+    if client.supports_method('textDocument/formatting') then
       vim.api.nvim_clear_autocmds { buffer = bufnr }
       vim.api.nvim_create_autocmd('BufWritePre', {
         buffer = bufnr,

@@ -1,3 +1,10 @@
+local ok_cmp, cmp = pcall(require, 'cmp')
+local ok_snip, luasnip = pcall(require, 'luasnip')
+
+if not ok_cmp and not ok_snip then
+  return
+end
+
 local cmp_icons = {
   Namespace = '',
   Text = '',
@@ -38,8 +45,7 @@ local cmp_icons = {
   Package = '',
   Copilot = '',
 }
-local cmp = require 'cmp'
-local luasnip = require 'luasnip'
+
 require('luasnip.loaders.from_vscode').lazy_load()
 luasnip.config.setup {}
 cmp.setup {

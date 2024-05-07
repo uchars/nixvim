@@ -1,4 +1,9 @@
-require('oil').setup {
+local ok, oil = pcall(require, 'oil')
+if not ok then
+  return
+end
+
+oil.setup {
   keymaps = {
     ['g?'] = 'actions.show_help',
     ['<CR>'] = 'actions.select',
