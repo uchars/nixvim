@@ -1,4 +1,5 @@
 local ok, _ = pcall(require, 'telescope')
+local fzf_ok, _ = pcall(require, 'fzf')
 if not ok then
   return
 end
@@ -43,7 +44,9 @@ require('telescope').setup {
   },
 }
 
-require('telescope').load_extension('fzf')
+if fzf_ok then
+  require('telescope').load_extension('fzf')
+end
 require('telescope').load_extension('project')
 require('telescope').load_extension('git_worktree')
 
