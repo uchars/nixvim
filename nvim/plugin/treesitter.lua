@@ -1,3 +1,9 @@
+local ok, _ = pcall(require, "treesitter")
+local compiler_found = vim.fn.executable("gcc") == 1 or vim.fn.executable("clang") == 1
+if not ok or not compiler_found then
+  return
+end
+
 require('nvim-treesitter.configs').setup {
   -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
   ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim',
