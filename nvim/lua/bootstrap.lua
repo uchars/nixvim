@@ -20,6 +20,7 @@ require('lazy').setup {
 
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
+  'xiyaowong/transparent.nvim',
 
   {
     'neovim/nvim-lspconfig',

@@ -4,9 +4,16 @@ if not ok or not compiler_found then
   return
 end
 
+local function remove_if_gcc_not_installed(langs)
+  if vim.fn.executable("gcc") == 1 then
+    return langs
+  end
+  return {}
+end
+
 require('nvim-treesitter.configs').setup {
   -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
-  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim',
+  ensure_installed = remove_if_gcc_not_installed { ['c'] = "gcc", ['cpp'] = "gcc", ['go'] = "", 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim',
     'html', 'make', 'sql', 'css' },
   auto_install = false,
 

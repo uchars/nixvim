@@ -1,4 +1,5 @@
 local ok, _ = pcall(require, 'telescope')
+local fzf_ok, _ = pcall(require, 'fzf')
 if not ok then
   return
 end
@@ -13,6 +14,7 @@ local function remove_nonexistant_dirs(dirs)
   return valid
 end
 
+print(vim.fn.stdpath('config'))
 require('telescope').setup {
   defaults = {
     layout_config = {
@@ -38,12 +40,16 @@ require('telescope').setup {
         os.getenv('HOME') .. '/src',
         os.getenv('HOME') .. '/work',
         os.getenv('HOME') .. '/.dotfiles',
+        os.getenv('HOME') .. '/AppData/Local/nvim',
+        os.getenv('HOME') .. '.config/nvim',
       },
     },
   },
 }
 
-require('telescope').load_extension('fzf')
+if fzf_ok then
+  require('telescope').load_extension('fzf')
+end
 require('telescope').load_extension('project')
 require('telescope').load_extension('git_worktree')
 

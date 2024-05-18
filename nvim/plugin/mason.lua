@@ -12,7 +12,6 @@ local npm_installed = vim.fn.executable("npm") == 1
 
 local servers = {
   pyright = {},
-  nil_ls = {},
   tsserver = {},
   bashls = {},
   html = { filetypes = { 'html', 'twig', 'hbs' } },
@@ -30,6 +29,7 @@ end
 
 if cargo_installed then
   servers.rust_analyzer = {}
+  servers.nil_ls = {}
 end
 
 if go_installed then
@@ -40,6 +40,6 @@ if py_installed then
   servers.cmake = {}
 end
 
-mason_lsp.setup{
+mason_lsp.setup {
   ensure_installed = vim.tbl_keys(servers)
 }
