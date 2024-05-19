@@ -92,7 +92,7 @@ vim.api.nvim_create_user_command('W', function()
 end, { nargs = 0 })
 vim.keymap.set('n', '<leader>u', '<cmd>UndotreeToggle<CR>')
 
-if true then
+if not vim.fn.executable('nixos-version') == 1 then
   -- use package manager if the system does not use nix
   require('bootstrap')
 end
