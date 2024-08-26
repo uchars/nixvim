@@ -4,17 +4,34 @@ if not ok or not compiler_found then
   return
 end
 
-local function remove_if_gcc_not_installed(langs)
-  if vim.fn.executable("gcc") == 1 then
+local function remove_if_clang_not_installed(langs)
+  if vim.fn.executable("clang") == 1 then
     return langs
   end
   return {}
 end
 
-require('nvim-treesitter.configs').setup {
+require("nvim-treesitter.configs").setup({
   -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
-  ensure_installed = remove_if_gcc_not_installed { ['c'] = "gcc", ['cpp'] = "gcc", ['go'] = "", 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim',
-    'html', 'make', 'sql', 'css' },
+  ensure_installed = remove_if_clang_not_installed({
+    "go",
+    "c",
+    "cpp",
+    "lua",
+    "markdown",
+    "markdown_inline",
+    "python",
+    "rust",
+    "tsx",
+    "javascript",
+    "typescript",
+    "vimdoc",
+    "vim",
+    "html",
+    "make",
+    "sql",
+    "css",
+  }),
   auto_install = false,
 
   autotag = {
@@ -25,57 +42,13 @@ require('nvim-treesitter.configs').setup {
   incremental_selection = {
     enable = true,
     keymaps = {
-      init_selection = '<c-space>',
-      node_incremental = '<c-space>',
-      scope_incremental = '<c-s>',
-      node_decremental = '<M-space>',
+      init_selection = "<c-space>",
+      node_incremental = "<c-space>",
+      scope_incremental = "<c-s>",
+      node_decremental = "<M-space>",
     },
   },
   playground = {
     enable = true,
   },
-  textobjects = {
-    select = {
-      enable = true,
-      lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
-      keymaps = {
-        -- You can use the capture groups defined in textobjects.scm
-        ['aa'] = '@parameter.outer',
-        ['ia'] = '@parameter.inner',
-        ['af'] = '@function.outer',
-        ['if'] = '@function.inner',
-        ['ac'] = '@class.outer',
-        ['ic'] = '@class.inner',
-      },
-    },
-    move = {
-      enable = true,
-      set_jumps = true, -- whether to set jumps in the jumplist
-      goto_next_start = {
-        [']m'] = '@function.outer',
-        [']]'] = '@class.outer',
-      },
-      goto_next_end = {
-        [']M'] = '@function.outer',
-        [']['] = '@class.outer',
-      },
-      goto_previous_start = {
-        ['[m'] = '@function.outer',
-        ['[['] = '@class.outer',
-      },
-      goto_previous_end = {
-        ['[M'] = '@function.outer',
-        ['[]'] = '@class.outer',
-      },
-    },
-    swap = {
-      enable = true,
-      swap_next = {
-        ['<leader>a'] = '@parameter.inner',
-      },
-      swap_previous = {
-        ['<leader>A'] = '@parameter.inner',
-      },
-    },
-  },
-}
+})

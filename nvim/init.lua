@@ -1,4 +1,4 @@
-vim.g.mapleader = ' '
+vim.g.mapleader = " "
 -- Set highlight on search
 vim.o.hlsearch = false
 
@@ -13,15 +13,15 @@ vim.o.shiftwidth = 2
 vim.o.expandtab = true
 
 -- Enable mouse mode
-vim.o.mouse = 'a'
+vim.o.mouse = "a"
 
 -- Enable break indent
 vim.o.breakindent = true
-vim.opt.guicursor = ''
+vim.opt.guicursor = ""
 
 -- Save undo history
 vim.opt.backup = false
-vim.opt.undodir = vim.fn.stdpath('data') .. '/undodir'
+vim.opt.undodir = vim.fn.stdpath("data") .. "/undodir"
 vim.o.undofile = true
 vim.o.swapfile = false
 
@@ -30,74 +30,76 @@ vim.o.ignorecase = true
 vim.o.smartcase = true
 
 -- Keep signcolumn on by default
-vim.wo.signcolumn = 'yes'
+vim.wo.signcolumn = "yes"
 
 -- Decrease update time
 vim.o.updatetime = 50
 
 -- Set completeopt to have a better completion experience
-vim.o.completeopt = 'menuone,noselect'
+vim.o.completeopt = "menuone,noselect"
 
 -- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
 
 -- [[ Basic Keymaps ]]
-vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
+vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 
 -- Remap for dealing with word wrap
-vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
-local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
-vim.api.nvim_create_autocmd('TextYankPost', {
+local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
+vim.api.nvim_create_autocmd("TextYankPost", {
   callback = function()
     vim.highlight.on_yank()
   end,
   group = highlight_group,
-  pattern = '*',
+  pattern = "*",
 })
-local format_group = vim.api.nvim_create_augroup('FormatGroup', { clear = true })
-vim.api.nvim_create_autocmd('BufWritePre', {
+local format_group = vim.api.nvim_create_augroup("FormatGroup", { clear = true })
+vim.api.nvim_create_autocmd("BufWritePre", {
   group = format_group,
-  pattern = '*',
-  command = '%s/\\s\\+$//e',
+  pattern = "*",
+  command = "%s/\\s\\+$//e",
 })
 vim.cmd([[autocmd FileType * setlocal formatoptions-=cro]])
+vim.cmd([[autocmd BufNewFile,BufRead Dockerfile* set filetype=Dockerfile]])
 
-vim.keymap.set('n', 'n', 'nzzzv')
-vim.keymap.set('n', 'N', 'Nzzzv')
-vim.keymap.set('n', '<C-d>', '<C-d>zz')
-vim.keymap.set('n', '<C-u>', '<C-u>zz')
-vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
-vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
+vim.keymap.set("n", "n", "nzzzv")
+vim.keymap.set("n", "N", "Nzzzv")
+vim.keymap.set("n", "<C-d>", "<C-d>zz")
+vim.keymap.set("n", "<C-u>", "<C-u>zz")
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 
-vim.keymap.set('n', '<C-k>', '<cmd>cnext<CR>zz')
-vim.keymap.set('n', '<C-j>', '<cmd>cprev<CR>zz')
+vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
+vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
 
 -- Writing file CTRL+S
-vim.keymap.set('n', '<C-s>', '<cmd>w<cr>')
-vim.keymap.set('i', '<C-s>', '<cmd>w<cr>')
+vim.keymap.set("n", "<C-s>", "<cmd>w<cr>")
+vim.keymap.set("i", "<C-s>", "<cmd>w<cr>")
 
 -- Git keybinds
-vim.keymap.set('n', '<leader>gs', '<cmd>Git<CR>')
-vim.keymap.set('n', '<C-b>', '<CMD>Oil<CR>')
+vim.keymap.set("n", "<leader>gs", "<cmd>Git<CR>")
+vim.keymap.set("n", "<C-b>", "<CMD>Oil<CR>")
 
 -- Copy paste
-vim.keymap.set('x', '<leader>p', [["_dP]])
-vim.keymap.set({ 'n', 'v' }, '<leader>y', [["+y]])
-vim.keymap.set('n', '<leader>Y', [["+Y]])
+vim.keymap.set("x", "<leader>p", [["_dP]])
+vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
+vim.keymap.set("n", "<leader>Y", [["+Y]])
 
-vim.api.nvim_create_user_command('W', function()
-  vim.cmd('w')
+vim.api.nvim_create_user_command("W", function()
+  vim.cmd("w")
 end, { nargs = 0 })
-vim.keymap.set('n', '<leader>u', '<cmd>UndotreeToggle<CR>')
+vim.keymap.set("n", "<leader>u", "<cmd>UndotreeToggle<CR>")
 
 if true then
   -- use package manager if the system does not use nix
-  require('bootstrap')
+  require("bootstrap")
 end
 
 local ok, _ = pcall(require, "onedark")
 if ok then
   vim.cmd([[colorscheme onedark]])
 end
+vim.g.transparent_enabled = true
