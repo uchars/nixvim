@@ -26,7 +26,10 @@ require("lazy").setup({
   "tpope/vim-sleuth",
   { "xiyaowong/transparent.nvim", commit = "fd35a46" },
 
-  { "kkoomen/vim-doge" },
+  {
+    "kkoomen/vim-doge",
+    tag = "v4.7.0",
+  },
   {
     "neovim/nvim-lspconfig",
     tag = "v0.1.8",
@@ -47,7 +50,7 @@ require("lazy").setup({
       "jose-elias-alvarez/null-ls.nvim",
       {
         "ray-x/lsp_signature.nvim",
-        event = "VeryLazy",
+        tag = "v0.3.1",
       },
       {
         "j-hui/fidget.nvim",
@@ -56,6 +59,7 @@ require("lazy").setup({
       "folke/neodev.nvim",
       {
         "folke/trouble.nvim",
+        tag = "v3.6.0",
         cmd = "Trouble",
       },
     },
@@ -65,9 +69,10 @@ require("lazy").setup({
     "hrsh7th/nvim-cmp",
     commit = "a110e12",
     dependencies = {
+      "L3MON4D3/LuaSnip",
+      "saadparwaiz1/cmp_luasnip",
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-path",
-      "rafamadriz/friendly-snippets",
     },
   },
 
@@ -78,14 +83,11 @@ require("lazy").setup({
 
   "navarasu/onedark.nvim",
   "folke/tokyonight.nvim",
-
-  {
-    "lukas-reineke/indent-blankline.nvim",
-    main = "ibl",
-  },
+  "rebelot/kanagawa.nvim",
 
   {
     "numToStr/Comment.nvim",
+    tag = "v0.8.0",
   },
 
   {
@@ -120,4 +122,6 @@ require("lazy").setup({
 
   "ThePrimeagen/harpoon",
   "mbbill/undotree",
+
+  { "norcalli/nvim-colorizer.lua" },
 })

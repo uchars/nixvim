@@ -1,11 +1,11 @@
-local ok, colorizer = pcall(require, 'colorizer')
+local ok, colorizer = pcall(require, "colorizer")
 if not ok then
   return
 end
 
-colorizer.setup {
-  'css',
-  'scss',
-  'html',
-  'javascript',
-}
+colorizer.setup({
+  "css",
+  "scss",
+  "html",
+  "javascript",
+})

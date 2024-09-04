@@ -1,6 +1,7 @@
 local ok_cmp, cmp = pcall(require, "cmp")
+local ok_snip, luasnip = pcall(require, "luasnip")
 
-if not ok_cmp then
+if not ok_cmp or not ok_snip then
   return
 end
 
@@ -45,10 +46,18 @@ local cmp_icons = {
   Copilot = "",
 }
 
+require("luasnip.loaders.from_vscode").lazy_load()
+luasnip.config.setup({})
+
 cmp.setup({
   window = {
     documentation = cmp.config.window.bordered(),
     completion = cmp.config.window.bordered({}),
+  },
+  snippet = {
+    expand = function(args)
+      luasnip.lsp_expand(args.body)
+    end,
   },
   mapping = cmp.mapping.preset.insert({
     ["<C-n>"] = cmp.mapping.select_next_item(),
@@ -63,6 +72,8 @@ cmp.setup({
     ["<Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
+      elseif luasnip.expand_or_locally_jumpable() then
+        luasnip.expand_or_jump()
       else
         fallback()
       end
@@ -70,6 +81,8 @@ cmp.setup({
     ["<S-Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
+      elseif luasnip.locally_jumpable(-1) then
+        luasnip.jump(-1)
       else
         fallback()
       end

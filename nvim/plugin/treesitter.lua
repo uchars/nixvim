@@ -11,6 +11,8 @@ local function remove_if_clang_not_installed(langs)
   return {}
 end
 
+require("treesitter-context").setup({})
+
 require("nvim-treesitter.configs").setup({
   -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
   ensure_installed = remove_if_clang_not_installed({

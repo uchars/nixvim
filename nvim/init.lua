@@ -50,17 +50,17 @@ vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 
 local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
 vim.api.nvim_create_autocmd("TextYankPost", {
-  callback = function()
-    vim.highlight.on_yank()
-  end,
-  group = highlight_group,
-  pattern = "*",
+	callback = function()
+		vim.highlight.on_yank()
+	end,
+	group = highlight_group,
+	pattern = "*",
 })
 local format_group = vim.api.nvim_create_augroup("FormatGroup", { clear = true })
 vim.api.nvim_create_autocmd("BufWritePre", {
-  group = format_group,
-  pattern = "*",
-  command = "%s/\\s\\+$//e",
+	group = format_group,
+	pattern = "*",
+	command = "%s/\\s\\+$//e",
 })
 vim.cmd([[autocmd FileType * setlocal formatoptions-=cro]])
 vim.cmd([[autocmd BufNewFile,BufRead Dockerfile* set filetype=Dockerfile]])
@@ -88,18 +88,22 @@ vim.keymap.set("x", "<leader>p", [["_dP]])
 vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
 vim.keymap.set("n", "<leader>Y", [["+Y]])
 
+--terminal keymap
+vim.keymap.set("t", "<Esc>", "<C-\\><C-n>)")
+vim.api.nvim_set_keymap("t", "<C-r>", "<C-\\><C-n><C-r>", { noremap = true, silent = true })
+
 vim.api.nvim_create_user_command("W", function()
-  vim.cmd("w")
+	vim.cmd("w")
 end, { nargs = 0 })
 vim.keymap.set("n", "<leader>u", "<cmd>UndotreeToggle<CR>")
 
-if not vim.fn.executable('nixos-version') == 1 then
-  -- use package manager if the system does not use nix
-  require("bootstrap")
+if true then
+	-- use package manager if the system does not use nix
+	require("bootstrap")
 end
 
 local ok, _ = pcall(require, "onedark")
 if ok then
-  vim.cmd([[colorscheme onedark]])
+	vim.cmd([[colorscheme onedark]])
 end
 vim.g.transparent_enabled = true

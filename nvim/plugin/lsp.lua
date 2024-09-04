@@ -3,8 +3,13 @@ local ok_lspconf, _ = pcall(require, "fidget")
 local ok_telescope, _ = pcall(require, "telescope")
 local ok_signature, _ = pcall(require, "lsp_signature")
 local ok_trouble, trouble = pcall(require, "trouble")
+local ok_neodev, neodev = pcall(require, "neodev")
 if not ok_lspconf and not ok_telescope then
   return
+end
+
+if ok_neodev then
+  neodev.setup()
 end
 
 local on_attach = function(_, bufnr)

@@ -10,15 +10,10 @@ local go_installed = vim.fn.executable("go") == 1
 local unzip_installed = vim.fn.executable("unzip") == 1
 local cargo_installed = vim.fn.executable("cargo") == 1
 local npm_installed = vim.fn.executable("npm") == 1
-local is_windows = vim.fn.has("win32")
+local is_windows = vim.fn.has("win32") or vim.fn.has("win64")
 local ocaml_installed = vim.fn.executable("opam") == 1
 
 local servers = {
-	pyright = {},
-	tsserver = {},
-	bashls = {},
-	marksman = {},
-	html = { filetypes = { "html", "twig", "hbs" } },
 	lua_ls = {
 		Lua = {
 			workspace = { checkThirdParty = false },
@@ -29,14 +24,14 @@ local servers = {
 
 local formatters = {}
 
-if unzip_installed then
+if unzip_installed or is_windows then
 	servers.clangd = {}
+	formatters.asmfmt = {}
 end
 
 if cargo_installed then
 	servers.rust_analyzer = {}
 	if not is_windows then
-		print("IS LINUX")
 		servers.nil_ls = {}
 	end
 end
@@ -55,7 +50,12 @@ end
 if npm_installed then
 	formatters.stylua = {}
 	formatters.prettierd = {}
+	servers.pyright = {}
 	servers.dockerls = {}
+	servers.tsserver = {}
+	servers.bashls = {}
+	servers.marksman = {}
+	servers.html = { filetypes = { "html", "twig", "hbs" } }
 end
 
 if ocaml_installed then
