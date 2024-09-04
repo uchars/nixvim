@@ -18,6 +18,12 @@ local function git_amr()
   return a, m, r
 end
 
+if not vim.fn.exists(":Git") ~= 0 then
+  -- use fallback statusline
+  vim.opt.statusline = "%f%m%= %{&fileencoding?&fileencoding:&encoding}[%{&fileformat}]%y %3p%% %4l:%3c"
+  return
+end
+
 local branch = vim.fn.FugitiveHead() ~= "" and "[%{FugitiveHead()}]" or "[N/A]"
 local added, modified, removed = git_amr()
 local amr = vim.fn.FugitiveHead() ~= "" and "(+" .. added .. " ~" .. modified .. " -" .. removed .. ")" or ""

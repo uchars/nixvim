@@ -6,3 +6,5 @@ end
 
 gs.setup()
 gw.setup()
+
+vim.keymap.set("n", "<leader>gs", "<cmd>Git<CR>")

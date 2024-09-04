@@ -1,4 +1,9 @@
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+local git_installed = vim.fn.executable("git") == 1
+if not git_installed then
+  return
+end
+
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
     "git",

@@ -65,8 +65,6 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 vim.cmd([[autocmd FileType * setlocal formatoptions-=cro]])
 vim.cmd([[autocmd BufNewFile,BufRead Dockerfile* set filetype=Dockerfile]])
 
-vim.keymap.set("n", "n", "nzzzv")
-vim.keymap.set("n", "N", "Nzzzv")
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
@@ -78,10 +76,6 @@ vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
 -- Writing file CTRL+S
 vim.keymap.set("n", "<C-s>", "<cmd>w<cr>")
 vim.keymap.set("i", "<C-s>", "<cmd>w<cr>")
-
--- Git keybinds
-vim.keymap.set("n", "<leader>gs", "<cmd>Git<CR>")
-vim.keymap.set("n", "<C-b>", "<CMD>Oil<CR>")
 
 -- Copy paste
 vim.keymap.set("x", "<leader>p", [["_dP]])
@@ -95,15 +89,16 @@ vim.api.nvim_set_keymap("t", "<C-r>", "<C-\\><C-n><C-r>", { noremap = true, sile
 vim.api.nvim_create_user_command("W", function()
 	vim.cmd("w")
 end, { nargs = 0 })
-vim.keymap.set("n", "<leader>u", "<cmd>UndotreeToggle<CR>")
 
 if true then
 	-- use package manager if the system does not use nix
 	require("bootstrap")
 end
 
-local ok, _ = pcall(require, "onedark")
+local ok, _ = pcall(require, "tokyonight")
 if ok then
-	vim.cmd([[colorscheme onedark]])
+	vim.cmd([[colorscheme tokyonight]])
+else
+	vim.cmd([[colorscheme evening]])
 end
 vim.g.transparent_enabled = true

@@ -23,3 +23,5 @@ oil.setup({
   use_default_keymaps = false,
   view_options = { show_hidden = true },
 })
+
+vim.keymap.set("n", "<C-b>", "<CMD>Oil<CR>")
