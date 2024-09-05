@@ -43,6 +43,7 @@ end
 
 if py_installed then
 	servers.cmake = {}
+	servers.pylsp = {}
 	formatters.autopep8 = {}
 	formatters.clang_format = {}
 end
@@ -50,7 +51,6 @@ end
 if npm_installed then
 	formatters.stylua = {}
 	formatters.prettierd = {}
-	servers.pyright = {}
 	servers.dockerls = {}
 	servers.tsserver = {}
 	servers.bashls = {}

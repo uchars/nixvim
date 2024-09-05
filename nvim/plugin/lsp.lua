@@ -91,7 +91,7 @@ require("lspconfig").clangd.setup({
   on_attach = on_attach,
 })
 
-require("lspconfig").pyright.setup({
+require("lspconfig").pylsp.setup({
   capabilities = capabilities,
   on_attach = on_attach,
 })

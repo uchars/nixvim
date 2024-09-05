@@ -1,3 +1,5 @@
+require("nilsfuncs")
+
 vim.g.mapleader = " "
 -- Set highlight on search
 vim.o.hlsearch = false
@@ -84,14 +86,32 @@ vim.keymap.set("n", "<leader>Y", [["+Y]])
 
 --terminal keymap
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>)")
-vim.api.nvim_set_keymap("t", "<C-r>", "<C-\\><C-n><C-r>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("t", "<C-r>", "<C-r>", { noremap = false, silent = true })
+
+-- split keymap
+vim.keymap.set("n", "<C-h>", "<C-w>h")
+vim.keymap.set("n", "<C-j>", "<C-w>j")
+vim.keymap.set("n", "<C-k>", "<C-w>k")
+vim.keymap.set("n", "<C-l>", "<C-w>l")
 
 vim.api.nvim_create_user_command("W", function()
 	vim.cmd("w")
 end, { nargs = 0 })
 
-if true then
-	-- use package manager if the system does not use nix
+vim.keymap.set("n", "<C-b>", "<cmd>:Ex<cr>")
+vim.keymap.set("n", "<Left>", "gT")
+vim.keymap.set("n", "<Right>", "gt")
+vim.keymap.set("n", "<Up>", "<cmd>:bnext<cr>")
+vim.keymap.set("n", "<Down>", "<cmd>:bprev<cr>")
+
+vim.api.nvim_set_keymap("n", "<C-f>", [[:lua InpGrepQf()<CR>]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "gr", [[:lua GrepCword()<CR>]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<C-k><C-o>", [[:lua HeaderSourceToggle()<CR>]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<C-p>", [[:lua FindFile()<CR>]], { noremap = true, silent = true })
+
+require("statusline")
+
+if false then
 	require("bootstrap")
 end
 
@@ -99,6 +119,6 @@ local ok, _ = pcall(require, "tokyonight")
 if ok then
 	vim.cmd([[colorscheme tokyonight]])
 else
-	vim.cmd([[colorscheme evening]])
+	vim.cmd([[colorscheme solarized8]])
 end
 vim.g.transparent_enabled = true
