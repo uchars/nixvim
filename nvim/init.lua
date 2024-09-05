@@ -111,7 +111,7 @@ vim.api.nvim_set_keymap("n", "<C-p>", [[:lua FindFile()<CR>]], { noremap = true,
 
 require("statusline")
 
-if false then
+if true then
 	require("bootstrap")
 end
 
