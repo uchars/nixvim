@@ -46,6 +46,7 @@ if py_installed then
 	servers.pylsp = {}
 	formatters.autopep8 = {}
 	formatters.clang_format = {}
+	formatters.xmlformatter = {}
 end
 
 if npm_installed then
