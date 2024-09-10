@@ -1,6 +1,5 @@
-local ok, _ = pcall(require, "treesitter")
-local compiler_found = vim.fn.executable("gcc") == 1 or vim.fn.executable("clang") == 1
-if not ok or not compiler_found then
+local ok, _ = pcall(require, "nvim-treesitter")
+if not ok then
   return
 end
 
@@ -13,8 +12,9 @@ end
 
 require("treesitter-context").setup({})
 
+---@diagnostic disable-next-line: missing-fields
 require("nvim-treesitter.configs").setup({
-  -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
+  -- Auto install languages that are not installed. Defaults to false (but you can change for yourself!)
   ensure_installed = remove_if_clang_not_installed({
     "go",
     "c",
@@ -35,7 +35,6 @@ require("nvim-treesitter.configs").setup({
     "css",
   }),
   auto_install = false,
-
   autotag = {
     enable = true,
   },

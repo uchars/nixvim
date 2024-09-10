@@ -109,11 +109,18 @@ vim.api.nvim_set_keymap("n", "gr", [[:lua GrepCword()<CR>]], { noremap = true, s
 vim.api.nvim_set_keymap("n", "<C-k><C-o>", [[:lua HeaderSourceToggle()<CR>]], { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<C-p>", [[:lua FindFile()<CR>]], { noremap = true, silent = true })
 
-require("statusline")
-
 if true then
 	require("bootstrap")
 end
+
+require("statusline")
+
+vim.api.nvim_create_user_command("Minimal", function()
+	vim.api.nvim_set_keymap("n", "<C-f>", [[:lua InpGrepQf()<CR>]], { noremap = true, silent = true })
+	vim.api.nvim_set_keymap("n", "gr", [[:lua GrepCword()<CR>]], { noremap = true, silent = true })
+	vim.api.nvim_set_keymap("n", "<C-k><C-o>", [[:lua HeaderSourceToggle()<CR>]], { noremap = true, silent = true })
+	vim.api.nvim_set_keymap("n", "<C-p>", [[:lua FindFile()<CR>]], { noremap = true, silent = true })
+end, { nargs = 0 })
 
 local ok, _ = pcall(require, "tokyonight")
 if ok then
