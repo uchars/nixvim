@@ -1,6 +1,7 @@
 {
   imports = [
     ./transparent.nix
+    ./colorizer.nix
     ./vimtex.nix
     ./surround.nix
     ./markdown-preview.nix
