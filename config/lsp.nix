@@ -9,18 +9,25 @@
         elixirls.enable = true;
         gopls.enable = true;
         nixd.enable = true;
-        rust_analyzer.enable = true;
+        rust_analyzer = {
+          enable = true;
+          installRustc = true;
+          installCargo = true;
+        };
+        zls.enable = true;
         lua_ls.enable = true;
-        hls.enable = true;
+        hls = {
+          enable = true;
+          installGhc = true;
+        };
         jsonls.enable = true;
         dockerls.enable = true;
         cmake.enable = true;
       };
       keymaps.lspBuf = {
         "gd" = "definition";
-        "gD" = "references";
+        "gr" = "references";
         "gt" = "type_definition";
-        "ca" = "code_action";
         "gi" = "implementation";
         "K" = "hover";
       };
@@ -28,6 +35,12 @@
   };
 
   keymaps = [
+
+    {
+      mode = "n";
+      key = "<leader>ca";
+      action.__raw = "vim.lsp.buf.code_action";
+    }
 
     {
       mode = "n";

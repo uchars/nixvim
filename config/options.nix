@@ -3,6 +3,8 @@
   config.opts = {
     updatetime = 100; # Faster completion
 
+    hlsearch = false;
+
     number = true;
     relativenumber = true;
     splitbelow = true;

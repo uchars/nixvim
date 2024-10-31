@@ -1,5 +1,9 @@
 {
   imports = [
+    ./transparent.nix
+    ./vimtex.nix
+    ./surround.nix
+    ./markdown-preview.nix
     ./options.nix
     ./neogen.nix
     ./format.nix
