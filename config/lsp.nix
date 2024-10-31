@@ -7,6 +7,7 @@
         clangd.enable = true;
         pyright.enable = true;
         elixirls.enable = true;
+        texlab.enable = true;
         gopls.enable = true;
         nixd.enable = true;
         rust_analyzer = {
