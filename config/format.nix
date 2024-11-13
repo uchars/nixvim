@@ -1,9 +1,9 @@
-{lib, pkgs, ...} : 
+{ lib, pkgs, ... }:
 {
   plugins.conform-nvim = {
     enable = true;
     settings = {
-        default_format_opts.lsp_format = "fallback";
+      default_format_opts.lsp_format = "fallback";
       formatters_by_ft = {
         "_" = [
           "squeeze_blanks"
@@ -24,9 +24,10 @@
     };
   };
 
-plugins.lsp-format = {
-      enable = true;
-    };
+  plugins.lsp-format = {
+    enable = true;
+  };
+
   plugins.none-ls = {
     enable = true;
     enableLspFormat = true;

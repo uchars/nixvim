@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 {
   plugins = {
     lsp = {
@@ -20,6 +20,8 @@
         hls = {
           enable = true;
           installGhc = true;
+          package = pkgs.haskell-language-server.override { supportedGhcVersions = [ "948" ]; };
+          autostart = true;
         };
         jsonls.enable = true;
         dockerls.enable = true;
@@ -36,6 +38,12 @@
   };
 
   keymaps = [
+
+    {
+      mode = "n";
+      key = "<leader>rn";
+      action.__raw = "vim.lsp.buf.rename";
+    }
 
     {
       mode = "n";

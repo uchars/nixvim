@@ -20,6 +20,6 @@
   ];
 
   clipboard.register = "unnamedplus";
-  colorschemes.cyberdream.enable = true;
+  colorschemes.gruvbox.enable = true;
   globals.mapleader = " ";
 }

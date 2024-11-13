@@ -5,6 +5,11 @@
 
     hlsearch = false;
 
+    spell = true;
+    spelllang = [
+      "en_us"
+    ];
+
     number = true;
     relativenumber = true;
     splitbelow = true;
