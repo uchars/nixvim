@@ -18,7 +18,7 @@
         zls.enable = true;
         lua_ls.enable = true;
         hls = {
-          enable = true;
+          enable = false;
           installGhc = true;
           package = pkgs.haskell-language-server.override { supportedGhcVersions = [ "948" ]; };
           autostart = true;
