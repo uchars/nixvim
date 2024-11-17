@@ -9,6 +9,7 @@
         elixirls.enable = true;
         texlab.enable = true;
         gopls.enable = true;
+        html.enable = true;
         nixd.enable = true;
         rust_analyzer = {
           enable = true;
@@ -17,6 +18,11 @@
         };
         zls.enable = true;
         lua_ls.enable = true;
+        cssls.enable = true;
+        ocamllsp = {
+          enable = true;
+          package = pkgs.ocamlPackages.ocaml-lsp;
+        };
         hls = {
           enable = false;
           installGhc = true;
@@ -49,6 +55,30 @@
       mode = "n";
       key = "<leader>ca";
       action.__raw = "vim.lsp.buf.code_action";
+    }
+
+    {
+      mode = "n";
+      key = "]E";
+      action.__raw = ''
+        function()
+          vim.diagnostic.goto_next({
+            severity = vim.diagnostic.severity.ERROR,
+          })
+        end
+      '';
+    }
+
+    {
+      mode = "n";
+      key = "[E";
+      action.__raw = ''
+        function()
+          vim.diagnostic.goto_prev({
+            severity = vim.diagnostic.severity.ERROR,
+          })
+        end
+      '';
     }
 
     {

@@ -1,6 +1,6 @@
 {
   imports = [
-    ./transparent.nix
+    ./lastplace.nix
     ./colorizer.nix
     ./vimtex.nix
     ./surround.nix
@@ -17,9 +17,9 @@
     ./telescope.nix
     ./oil.nix
     ./keymaps.nix
+    ./transparent.nix
   ];
 
-  clipboard.register = "unnamedplus";
   colorschemes.gruvbox.enable = true;
   globals.mapleader = " ";
 }

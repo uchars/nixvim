@@ -1,5 +1,24 @@
 { lib, pkgs, ... }:
 {
+  config.extraConfigLuaPre = ''
+    vim.api.nvim_create_user_command("W", function()
+      vim.cmd("w")
+    end, { nargs = 0 })
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      pattern = "*",
+      command = "%s/\\s\\+$//e",
+    })
+    vim.api.nvim_create_autocmd("TextYankPost", {
+      callback = function()
+        vim.highlight.on_yank()
+      end,
+      pattern = "*",
+    })
+    vim.keymap.set("x", "<leader>p", [["_dP]])
+    vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
+    vim.keymap.set("n", "<leader>Y", [["+Y]])
+  '';
+
   config.opts = {
     updatetime = 100; # Faster completion
 
@@ -17,7 +36,6 @@
     scrolloff = 4;
 
     autoindent = true;
-    clipboard = "unnamedplus";
     expandtab = true;
     shiftwidth = 2;
     smartindent = true;
@@ -29,8 +47,10 @@
     wildmode = "list:longest";
 
     swapfile = false;
-    undofile = true; # Build-in persistent undo
+    undofile = true;
 
     termguicolors = lib.mkForce pkgs.stdenv.isLinux;
+
+    statusline = "[%{FugitiveHead()}] %f%m%= %{&fileencoding?&fileencoding:&encoding}[%{&fileformat}]%y %3p%% %4l:%3c";
   };
 }

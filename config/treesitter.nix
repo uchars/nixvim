@@ -31,5 +31,6 @@
       };
     };
     rainbow-delimiters.enable = true;
+    ts-autotag.enable = true;
   };
 }
