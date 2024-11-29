@@ -24,7 +24,7 @@
           package = pkgs.ocamlPackages.ocaml-lsp;
         };
         hls = {
-          enable = false;
+          enable = true;
           installGhc = true;
           package = pkgs.haskell-language-server.override { supportedGhcVersions = [ "948" ]; };
           autostart = true;
@@ -127,6 +127,11 @@
 
   plugins.fidget = {
     enable = true;
+    notification = {
+      window = {
+        winblend = 0;
+      };
+    };
   };
 
   plugins = {

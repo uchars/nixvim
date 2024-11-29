@@ -2,6 +2,7 @@
   imports = [
     ./lastplace.nix
     ./colorizer.nix
+    ./zen.nix
     ./vimtex.nix
     ./surround.nix
     ./markdown-preview.nix
