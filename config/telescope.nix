@@ -5,7 +5,10 @@
     enable = true;
     settings = {
       defaults = {
-        file_ignore_patterns = [ ".git/" ".cache/" ];
+        file_ignore_patterns = [
+          ".git/"
+          ".cache/"
+        ];
         theme = "ivy";
         previewer = true;
         prompt_prefix = "-> ";
@@ -14,9 +17,21 @@
           height = 0.3;
           prompt_position = "top";
         };
-        borderchars = [ "-" "" "" "" "" "" "" "" ];
+        borderchars = [
+          "-"
+          ""
+          ""
+          ""
+          ""
+          ""
+          ""
+          ""
+        ];
       };
       pickers = {
+        colorscheme = {
+          enable_preview = true;
+        };
         live_grep = {
           hidden = true;
         };
