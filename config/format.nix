@@ -40,6 +40,7 @@
           enable = true;
           package = pkgs.nixfmt-rfc-style;
         };
+        prettierd.enable = true;
         stylua.enable = true;
         yamlfmt = {
           enable = true;

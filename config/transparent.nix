@@ -18,6 +18,7 @@
         "TelescopePrompt"
         "TelescopeMultiSelection"
         "TreesitterContext"
+        "TreesitterContextSeparator"
         "TreesitterContextLineNumber"
         "FloatBorder"
         "NormalFloat"
