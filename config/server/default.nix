@@ -12,4 +12,10 @@
     };
   };
 
+  plugins.treesitter.settings.ensure_installed = [
+    "nix"
+    "json"
+    "gitcommit"
+  ];
+
 }

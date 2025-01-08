@@ -42,4 +42,19 @@
     cmake.enable = true;
   };
 
+  plugins.treesitter.settings.ensure_installed = [
+    "c"
+    "cpp"
+    "rust"
+    "nix"
+    "json"
+    "cmake"
+    "make"
+    "python"
+    "gitcommit"
+    "gitignore"
+    "git_config"
+    "git_rebase"
+  ];
+
 }
