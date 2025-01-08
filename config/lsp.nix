@@ -6,7 +6,6 @@
       servers = {
         clangd.enable = true;
         pyright.enable = true;
-        elixirls.enable = true;
         texlab.enable = true;
         gopls.enable = true;
         html.enable = true;
@@ -24,13 +23,12 @@
           package = pkgs.ocamlPackages.ocaml-lsp;
         };
         hls = {
-          enable = true;
+          enable = false;
           installGhc = true;
           package = pkgs.haskell-language-server.override { supportedGhcVersions = [ "948" ]; };
           autostart = true;
         };
         jsonls.enable = true;
-        dockerls.enable = true;
         cmake.enable = true;
       };
       keymaps.lspBuf = {
