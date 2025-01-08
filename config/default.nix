@@ -13,13 +13,28 @@
     ./comment.nix
     ./cmp.nix
     ./treesitter.nix
-    ./lsp.nix
+    ./lsp-keymap.nix
     ./git.nix
     ./telescope.nix
     ./oil.nix
     ./keymaps.nix
     ./transparent.nix
   ];
+
+  plugins.lsp.enable = true;
+
+  plugins.fidget = {
+    enable = true;
+    notification = {
+      window = {
+        winblend = 0;
+      };
+    };
+  };
+
+  plugins = {
+    trouble.enable = true;
+  };
 
   colorschemes.gruvbox.enable = true;
   globals.mapleader = " ";

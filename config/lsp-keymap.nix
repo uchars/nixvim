@@ -1,44 +1,10 @@
-{ pkgs, ... }:
 {
-  plugins = {
-    lsp = {
-      enable = true;
-      servers = {
-        clangd.enable = true;
-        pyright.enable = true;
-        texlab.enable = true;
-        gopls.enable = true;
-        html.enable = true;
-        nixd.enable = true;
-        rust_analyzer = {
-          enable = true;
-          installRustc = true;
-          installCargo = true;
-        };
-        zls.enable = true;
-        lua_ls.enable = true;
-        cssls.enable = true;
-        ocamllsp = {
-          enable = true;
-          package = pkgs.ocamlPackages.ocaml-lsp;
-        };
-        hls = {
-          enable = false;
-          installGhc = true;
-          package = pkgs.haskell-language-server.override { supportedGhcVersions = [ "948" ]; };
-          autostart = true;
-        };
-        jsonls.enable = true;
-        cmake.enable = true;
-      };
-      keymaps.lspBuf = {
-        "gd" = "definition";
-        "gr" = "references";
-        "gt" = "type_definition";
-        "gi" = "implementation";
-        "K" = "hover";
-      };
-    };
+  plugins.lsp.keymaps.lspBuf = {
+    "gd" = "definition";
+    "gr" = "references";
+    "gt" = "type_definition";
+    "gi" = "implementation";
+    "K" = "hover";
   };
 
   keymaps = [
@@ -122,17 +88,4 @@
     }
 
   ];
-
-  plugins.fidget = {
-    enable = true;
-    notification = {
-      window = {
-        winblend = 0;
-      };
-    };
-  };
-
-  plugins = {
-    trouble.enable = true;
-  };
 }

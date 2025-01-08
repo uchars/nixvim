@@ -34,19 +34,6 @@
     settings = {
       updateInInsert = false;
     };
-    sources = {
-      formatting = {
-        nixfmt = {
-          enable = true;
-          package = pkgs.nixfmt-rfc-style;
-        };
-        # prettierd.enable = true;
-        stylua.enable = true;
-        yamlfmt = {
-          enable = true;
-        };
-        hclfmt.enable = true;
-      };
-    };
   };
+
 }

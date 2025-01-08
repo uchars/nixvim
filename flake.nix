@@ -5,47 +5,71 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixvim.url = "github:nix-community/nixvim";
     flake-utils.url = "github:numtide/flake-utils";
+    flake-parts.url = "github:hercules-ci/flake-parts";
   };
 
   outputs =
     {
-      self,
       nixpkgs,
       nixvim,
       flake-utils,
+      flake-parts,
       ...
     }@inputs:
-    let
-      config = import ./config; # import the module directly
-    in
-    flake-utils.lib.eachDefaultSystem (
-      system:
-      let
-        nixvimLib = nixvim.lib.${system};
-        pkgs = import nixpkgs { inherit system; };
-        nixvim' = nixvim.legacyPackages.${system};
-        nvim = nixvim'.makeNixvimWithModule {
-          inherit pkgs;
-          module = config;
-        };
-      in
-      {
-        formatter = nixpkgs.legacyPackages.${system}.nixpkgs-fmt;
-
-        environment.sessionVariables = {
-          XDG_DATA_DIRS = "~/.local/share/nvim";
-        };
-
-        checks = {
-          default = nixvimLib.check.mkTestDerivationFromNvim {
-            inherit nvim;
-            name = "My nixvim configuration";
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      systems = [
+        "x86_64-linux"
+        "aarch64-linux"
+        "x86_64-darwin"
+        "aarch64-darwin"
+      ];
+      perSystem =
+        { system, ... }:
+        let
+          overlays = [ ];
+          nixvimLib = nixvim.lib.${system};
+          nixvim' = nixvim.legacyPackages.${system};
+          home = {
+            inherit pkgs;
+            module =
+              { pkgs, ... }:
+              {
+                imports = [
+                  ./config
+                  ./config/home
+                ];
+                extraPackages = [ ];
+              };
+            extraSpecialArgs = { };
+          };
+          server = {
+            inherit pkgs;
+            module =
+              { pkgs, ... }:
+              {
+                imports = [
+                  ./config
+                  ./config/server
+                ];
+                extraPackages = [ ];
+              };
+            extraSpecialArgs = { };
+          };
+          pkgs = import inputs.nixpkgs {
+            inherit system overlays;
+            config.allowUnfree = true;
+          };
+          homeNvim = nixvim'.makeNixvimWithModule home;
+          serverNvim = nixvim'.makeNixvimWithModule server;
+        in
+        {
+          checks = {
+            default = nixvimLib.check.mkTestDerivationFromNixvimModule home;
+          };
+          packages = {
+            default = homeNvim;
+            server = serverNvim;
           };
         };
-
-        packages = {
-          default = nvim;
-        };
-      }
-    );
+    };
 }
