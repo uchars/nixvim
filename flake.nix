@@ -29,7 +29,7 @@
           overlays = [ ];
           nixvimLib = nixvim.lib.${system};
           nixvim' = nixvim.legacyPackages.${system};
-          home = {
+          homeModule = {
             inherit pkgs;
             module =
               { pkgs, ... }:
@@ -42,7 +42,7 @@
               };
             extraSpecialArgs = { };
           };
-          server = {
+          serverModule = {
             inherit pkgs;
             module =
               { pkgs, ... }:
@@ -59,12 +59,12 @@
             inherit system overlays;
             config.allowUnfree = true;
           };
-          homeNvim = nixvim'.makeNixvimWithModule home;
-          serverNvim = nixvim'.makeNixvimWithModule server;
+          homeNvim = nixvim'.makeNixvimWithModule homeModule;
+          serverNvim = nixvim'.makeNixvimWithModule serverModule;
         in
         {
           checks = {
-            default = nixvimLib.check.mkTestDerivationFromNixvimModule home;
+            default = nixvimLib.check.mkTestDerivationFromNixvimModule homeModule;
           };
           packages = {
             default = homeNvim;
