@@ -25,11 +25,11 @@
   };
 
   plugins.lsp-format = {
-    enable = true;
+    enable = false;
   };
 
   plugins.none-ls = {
-    enable = true;
+    enable = false;
     enableLspFormat = true;
     settings = {
       updateInInsert = false;

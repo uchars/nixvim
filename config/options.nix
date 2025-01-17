@@ -37,6 +37,7 @@
     splitbelow = true;
     splitright = true;
     scrolloff = 4;
+    signcolumn = "yes";
 
     autoindent = true;
     expandtab = true;
