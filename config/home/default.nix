@@ -28,6 +28,7 @@
     zls.enable = true;
     lua_ls.enable = true;
     cssls.enable = true;
+    java_language_server.enable = true;
     ocamllsp = {
       enable = true;
       package = pkgs.ocamlPackages.ocaml-lsp;
